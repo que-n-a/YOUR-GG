@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yourgg.persistence.BoardDAO">
+
+<select id="getPosts" resultType="com.yourgg.domain.BoardVO" >
+	<![CDATA[
+		select BOARD_NUMBER, BOARD_TITLE, BOARD_WRITER, BOARD_REGDATE
+		 from
+		  (select /*+ index_desc(board board_pk) */
+		  rownum rn, BOARD_NUMBER, BOARD_TITLE, BOARD_WRITER, BOARD_REGDATE from board)
+		   where rn >= #{param}*20-19 and rn <= #{param}*20
+	]]>
+</select>
+
+<insert id="registPost" parameterType="com.yourgg.domain.BoardVO">
+	<![CDATA[
+		INSERT INTO BOARD(BOARD_NUMBER, BOARD_TITLE, BOARD_CONTENT, BOARD_WRITER, BOARD_REGDATE, BOARD_PASSWORD)
+		 VALUES
+		  (BOARD_NUMBER.nextval, #{boardTitle}, #{boardContent}, #{boardWriter}, sysdate, #{boardPassword})
+	]]>
+</insert>
+
+</mapper>
