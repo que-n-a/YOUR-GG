@@ -10,6 +10,6 @@
 
 + *Oracle12c / jdk 11-0.8 / tomcat 9 / servlet 4.0 / spring-framework 5.0*
 
-+ *excuteSQL.sql 를 실행하십시오*
++ *excuteSQL.sql 을 실행하십시오*
 
 
